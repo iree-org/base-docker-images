@@ -7,7 +7,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: manylinux_x86_64
+  IMAGE_NAME: nod-ai/manylinux_x86_64
 
 jobs:
   build-and-push-image:
