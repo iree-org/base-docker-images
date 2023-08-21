@@ -1,9 +1,11 @@
 name: Publish manylinux_x86_64 image
 on:
+  workflow_dispatch:
   push:
     branches: ['main']
     paths:
     - dockerfiles/manylinux_x86_64.Dockerfile
+    - .github/workflows/publish_manylinux_x86_64.yml
 
 env:
   REGISTRY: ghcr.io
