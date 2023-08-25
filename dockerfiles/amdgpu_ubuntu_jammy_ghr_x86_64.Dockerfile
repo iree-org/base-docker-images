@@ -17,3 +17,6 @@ RUN wget https://github.com/GPUOpen-Drivers/AMDVLK/releases/download/v-2023.Q3.1
     rm -rf /install-amdvlk/*
 WORKDIR /
 RUN rmdir /install-amdvlk
+
+# Switch back to the working directory upstream expects.
+WORKDIR /actions-runner
