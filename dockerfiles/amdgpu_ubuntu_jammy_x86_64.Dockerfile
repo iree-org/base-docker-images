@@ -25,15 +25,14 @@ RUN rmdir /install-amdvlk
 #   docker run --device=/dev/kfd --device=/dev/dri <docker ID> rocminfo
 ARG ROCM_VERSION=5.6
 WORKDIR /install-rocm
-RUN wget https://repo.radeon.com/rocm/rocm.gpg.key -O - | gpg --dearmor | tee /etc/apt/keyrings/rocm.gpg > /dev/null && \
-    echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/rocm.gpg] https://repo.radeon.com/amdgpu/${ROCM_VERSION}/ubuntu jammy main" \
-    | tee /etc/apt/sources.list.d/amdgpu.list && \
-    apt update && DEBIAN_FRONTEND=noninteractive apt install -y --no-install-recommends ca-certificates amdgpu-dkms && \
-    echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/rocm.gpg] https://repo.radeon.com/rocm/apt/${ROCM_VERSION} jammy main" \
-    | tee --append /etc/apt/sources.list.d/rocm.list && \
-    echo 'Package: *\nPin: release o=repo.radeon.com\nPin-Priority: 600' \
-    | tee /etc/apt/preferences.d/rocm-pin-600 && \
-    apt update && DEBIAN_FRONTEND=noninteractive apt install  -y --no-install-recommends ca-certificates rocm-hip-sdk && \
+RUN mkdir --parents --mode=0755 /etc/apt/keyrings && wget https://repo.radeon.com/rocm/rocm.gpg.key -O - | \
+    gpg --dearmor | tee /etc/apt/keyrings/rocm.gpg > /dev/null && \
+    echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/rocm.gpg] https://repo.radeon.com/amdgpu/${ROCM_VERSION}/ubuntu jammy main" | \
+    tee /etc/apt/sources.list.d/amdgpu.list && \
+    echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/rocm.gpg] https://repo.radeon.com/rocm/apt/${ROCM_VERSION} jammy main" | \
+    tee /etc/apt/sources.list.d/rocm.list && \
+    echo 'Package: *\nPin: release o=repo.radeon.com\nPin-Priority: 600' | tee /etc/apt/preferences.d/rocm-pin-600 && \
+    apt update && DEBIAN_FRONTEND=noninteractive apt install -y --no-install-recommends ca-certificates rocm-hip-libraries && \
     echo "/opt/rocm/lib\n/opt/rocm/hip/lib" | tee /etc/ld.so.conf.d/24-rocm.conf && ldconfig && \
     rm -rf /install-rocm/*
 WORKDIR /
