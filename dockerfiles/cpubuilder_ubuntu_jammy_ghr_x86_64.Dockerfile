@@ -10,6 +10,8 @@ RUN apt update && \
     apt install -y \
         ccache clang-14 lld-14 libssl-dev ninja-build libxml2-dev llvm-dev pkg-config \
         libcapstone-dev libtbb-dev libzstd-dev && \
+    apt install -y \
+        libboost-all-dev && \
     apt clean && rm -rf /var/lib/apt/lists/*
 
 # Python deps.
