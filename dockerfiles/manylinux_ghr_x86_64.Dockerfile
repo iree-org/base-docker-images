@@ -46,6 +46,7 @@ RUN yum install -y epel-release && \
     yum install -y dumb-init jq && \
     yum install -y ccache ninja-build clang lld && \
     yum install -y capstone-devel tbb-devel libzstd-devel && \
+    yum install -y boost-devel && \
     /actions-runner/install_actions.sh ${GH_RUNNER_VERSION} ${TARGETPLATFORM} && \
     yum clean all && \
     rm -rf /var/cache/yum
@@ -54,7 +55,7 @@ RUN yum install -y epel-release && \
 WORKDIR /install-cmake
 
 # Install our minimum supported CMake version, which may be ahead of apt-get's version.
-ENV CMAKE_VERSION="3.28.1"
+ENV CMAKE_VERSION="3.23.2"
 
 COPY build_tools/install_cmake.sh ./
 RUN ./install_cmake.sh "${CMAKE_VERSION}" && rm -rf /install-cmake
