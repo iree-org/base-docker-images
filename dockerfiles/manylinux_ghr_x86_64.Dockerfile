@@ -44,12 +44,18 @@ RUN chmod +x /token.sh /entrypoint.sh /app_token.sh
 # Note that the actions-runner install script does yum transactions.
 RUN yum install -y epel-release && \
     yum install -y dumb-init jq && \
-    yum install -y ccache ninja-build clang lld && \
+    yum install -y ninja-build clang lld && \
     yum install -y capstone-devel tbb-devel libzstd-devel && \
     yum install -y boost-devel && \
     /actions-runner/install_actions.sh ${GH_RUNNER_VERSION} ${TARGETPLATFORM} && \
     yum clean all && \
     rm -rf /var/cache/yum
+
+######## CCache ########
+WORKDIR /install-ccache
+
+COPY build_tools/install_ccache.sh ./
+RUN ./install_ccache.sh "4.9" && rm -rf /install-ccache
 
 ######## CMake ########
 WORKDIR /install-cmake
