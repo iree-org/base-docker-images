@@ -46,7 +46,22 @@ RUN yum install -y epel-release && \
     yum install -y dumb-init jq && \
     yum install -y ninja-build clang lld && \
     yum install -y capstone-devel tbb-devel libzstd-devel && \
-    yum install -y boost-devel && \
+    yum install -y boost-devel \
+      boost-filesystem \
+      boost-program-options \
+      boost-static \
+      libcurl-devel \
+      libdrm-devel \
+      libudev-devel \
+      libuuid-devel \
+      ncurses-devel \
+      ocl-icd-devel \
+      openssl-devel \
+      pkgconfig \
+      protobuf-compiler \
+      protobuf-devel \
+      rapidjson-devel \
+      systemtap-sdt-devel && \
     /actions-runner/install_actions.sh ${GH_RUNNER_VERSION} ${TARGETPLATFORM} && \
     yum clean all && \
     rm -rf /var/cache/yum
