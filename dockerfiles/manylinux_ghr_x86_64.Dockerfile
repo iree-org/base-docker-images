@@ -3,7 +3,7 @@
 # new upstream versions as needed.
 FROM quay.io/pypa/manylinux_2_28_x86_64
 
-ARG GH_RUNNER_VERSION="2.312.0"
+ARG GH_RUNNER_VERSION="2.314.1"
 ARG TARGETPLATFORM
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
