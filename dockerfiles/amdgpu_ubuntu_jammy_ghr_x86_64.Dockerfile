@@ -1,7 +1,7 @@
 # GitHub Actions Runner with AMDGPU deps.
 # In order to use this in the container, you must pass /dev/dri in as:
 #   --device /dev/dri
-FROM docker.io/myoung34/github-runner:ubuntu-jammy
+FROM docker.io/myoung34/github-runner:2.314.1-ubuntu-jammy
 
 # Basic packages.
 RUN apt update && \
