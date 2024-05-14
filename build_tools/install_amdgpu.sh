@@ -28,3 +28,5 @@ fi
 
 wget https://github.com/GPUOpen-Drivers/AMDVLK/releases/download/v-2023.Q3.1/amdvlk_2023.Q3.1_amd64.deb && \
     dpkg -i amdvlk_2023.Q3.1_amd64.deb
+
+apt clean && rm -rf /var/lib/apt/lists/*

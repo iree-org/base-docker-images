@@ -4,11 +4,9 @@
 FROM ubuntu:jammy
 
 # Basic packages.
-RUN apt update && \
-    apt install -y \
-        wget python3.11 python3-pip git unzip curl gnupg2 lsb-release vulkan-tools && \
-    update-alternatives --install /usr/local/bin/python python /usr/bin/python3.11 3 && \
-    update-alternatives --install /usr/local/bin/python3 python3 /usr/bin/python3.11 3
+WORKDIR /install-base
+COPY build_tools/install_base.sh ./
+RUN ./install_base.sh "${CMAKE_VERSION}" && rm -rf /install-base
 
 # CMake
 WORKDIR /install-cmake
@@ -22,14 +20,17 @@ WORKDIR /install-amdgpu
 ARG AMDGPU_VERSION=6.1
 COPY build_tools/install_amdgpu.sh ./
 RUN ./install_amdgpu.sh "${AMDGPU_VERSION}" && rm -rf /install-amdgpu
-WORKDIR /
 
 # TheRock (ROCm)
 WORKDIR /install-the-rock
 COPY build_tools/install_the_rock.sh ./
 RUN ./install_the_rock.sh \
-#  && rm -rf /install-the-rock
-WORKDIR /
+  && rm -rf /install-the-rock
 
-# Clean up.
-RUN apt clean && rm -rf /var/lib/apt/lists/*
+# OpenMPI
+WORKDIR /install-openmpi
+COPY build_tools/install_openmpi.sh ./
+RUN ./install_openmpi.sh \
+  && rm -rf /install-openmpi
+
+WORKDIR /

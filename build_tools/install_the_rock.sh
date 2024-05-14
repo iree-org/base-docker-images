@@ -35,7 +35,7 @@ apt update
 apt install -y \
   repo git-lfs libnuma-dev ninja-build g++ pkg-config libdrm-dev \
   libelf-dev xxd libgl1-mesa-dev
-python -m pip install CppHeaderParser
+python -m pip install --no-cache-dir CppHeaderParser
 
 # Make sure git does not report Committer identity unknown errors.
 # export GIT_COMMITTER_NAME="Noname"
@@ -69,3 +69,5 @@ cmake --build build
 cmake --install build --component amdgpu-runtime
 cmake --install build --component amdgpu-runtime-dev
 cmake --install build --component amdgpu-compiler
+
+apt clean && rm -rf /var/lib/apt/lists/*
