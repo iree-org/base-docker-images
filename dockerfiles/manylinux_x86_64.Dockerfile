@@ -31,7 +31,7 @@ RUN ./install_bazel.sh && rm -rf /install-bazel
 # Git started enforcing strict user checking, which thwarts version
 # configuration scripts in a docker image where the tree was checked
 # out by the host and mapped in. Disable the check.
-# See: https://github.com/openxla/iree/issues/12046
+# See: https://github.com/iree-org/iree/issues/12046
 # We use the wildcard option to disable the checks. This was added
 # in git 2.35.3
 RUN git config --global --add safe.directory '*'

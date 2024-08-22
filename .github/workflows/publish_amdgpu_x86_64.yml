@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       REGISTRY: ghcr.io
-      IMAGE_NAME: nod-ai/amdgpu_ubuntu_jammy_x86_64
+      IMAGE_NAME: iree-org/amdgpu_ubuntu_jammy_x86_64
     # Sets the permissions granted to the `GITHUB_TOKEN` for the actions in this job.
     permissions:
       contents: read
@@ -47,7 +47,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       REGISTRY: ghcr.io
-      IMAGE_NAME: nod-ai/amdgpu_ubuntu_jammy_ghr_x86_64
+      IMAGE_NAME: iree-org/amdgpu_ubuntu_jammy_ghr_x86_64
     # Sets the permissions granted to the `GITHUB_TOKEN` for the actions in this job.
     permissions:
       contents: read
