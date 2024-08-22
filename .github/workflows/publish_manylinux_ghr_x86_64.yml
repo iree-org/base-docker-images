@@ -9,7 +9,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: nod-ai/manylinux_ghr_x86_64
+  IMAGE_NAME: iree-org/manylinux_ghr_x86_64
 
 jobs:
   build-and-push-image:
