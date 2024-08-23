@@ -35,3 +35,5 @@ RUN ./install_bazel.sh && rm -rf /install-bazel
 # We use the wildcard option to disable the checks. This was added
 # in git 2.35.3
 RUN git config --global --add safe.directory '*'
+
+WORKDIR /

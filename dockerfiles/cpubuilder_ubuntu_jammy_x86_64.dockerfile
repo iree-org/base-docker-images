@@ -1,5 +1,5 @@
-# GitHub Actions Runner with IREE build deps.
-FROM docker.io/myoung34/github-runner:ubuntu-jammy
+# Stock Ubuntu with IREE build deps.
+FROM ubuntu:jammy
 
 ######## Basic apt packages ########
 RUN apt update && \
@@ -29,5 +29,4 @@ RUN ln -s /usr/bin/lld-14 /usr/bin/lld && \
 ENV CC=clang
 ENV CXX=clang++
 
-# Switch back to the working directory upstream expects.
-WORKDIR /actions-runner
+WORKDIR /
