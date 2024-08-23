@@ -6,13 +6,13 @@ These images build and publish automatically using GitHub Actions.
 
 ## Available images
 
-Images with `ghr` in their name are configured as GitHub Actions Runners.
-
-Image name | Description
----------- | -----------
-`iree-org/amdgpu_ubuntu_jammy_x86_64`<br>`iree-org/amdgpu_ubuntu_jammy_ghr_x86_64` | Ubuntu with AMDGPU deps
-`iree-org/cpubuilder_ubuntu_jammy_ghr_x86_64` | CPU builder with IREE build deps
-`iree-org/manylinux_x86_64`<br>`iree-org/manylinux_ghr_x86_64` | Portable Linux release builder for Python packaging
+Image name | Description | Source Dockerfile
+---------- | ----------- | -----------------
+`iree-org/amdgpu_ubuntu_jammy_x86_64` | Ubuntu with AMDGPU deps | [Source](./dockerfiles/amdgpu_ubuntu_jammy_x86_64.Dockerfile)
+`iree-org/amdgpu_ubuntu_jammy_ghr_x86_64` | Ubuntu with AMDGPU deps (GitHub runner) | [Source](./dockerfiles/amdgpu_ubuntu_jammy_ghr_x86_64.Dockerfile)
+`iree-org/cpubuilder_ubuntu_jammy_ghr_x86_64` | CPU builder with IREE build deps (GitHub runner) | [Source](./dockerfiles/cpubuilder_ubuntu_jammy_ghr_x86_64.Dockerfile)
+`iree-org/manylinux_x86_64` | Portable Linux release builder for Python packaging | [Source](./dockerfiles/manylinux_x86_64.Dockerfile)
+`iree-org/manylinux_ghr_x86_64` | Portable Linux release builder for Python packaging (GitHub runner) | [Source](./dockerfiles/manylinux_ghr_x86_64.Dockerfile)
 
 ## Using published images
 
@@ -21,8 +21,13 @@ Images are published to the GitHub Container registry which uses the
 [GitHub's documentation](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry)
 for full details.
 
-For typical usage, reference each image using syntax like
-`ghcr.io/iree-org/manylinux_x86_64:main`.
+The full list of packages can be browsed at
+https://github.com/orgs/iree-org/packages?repo_name=base-docker-images. Images
+can be referenced using tags or hashes:
+
+* `ghcr.io/iree-org/manylinux_x86_64:main`
+* `ghcr.io/iree-org/manylinux_x86_64@sha256:facedb71df670016e74e646d71e869e6fff70d4cdbaa6634d4d0a10d6e174399`
+  (for example)
 
 ## Building locally
 
