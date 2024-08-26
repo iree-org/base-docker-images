@@ -14,7 +14,6 @@ RUN apt install -y python3.11-dev python3.11-venv python3-pip && \
     update-alternatives --install /usr/local/bin/python3 python3 /usr/bin/python3.11 3
 # Toolchains and build deps
 RUN apt install -y \
-        wget git unzip curl gnupg2 lsb-release \
         ccache ninja-build clang-14 lld-14 gcc-9 g++-9 \
         libssl-dev libxml2-dev libcapstone-dev libtbb-dev libzstd-dev \
         llvm-dev pkg-config
