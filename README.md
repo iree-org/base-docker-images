@@ -10,6 +10,7 @@ Image name | Description | Source Dockerfile
 ---------- | ----------- | -----------------
 `iree-org/amdgpu_ubuntu_jammy_x86_64` | Ubuntu with AMDGPU deps | [Source](./dockerfiles/amdgpu_ubuntu_jammy_x86_64.Dockerfile)
 `iree-org/amdgpu_ubuntu_jammy_ghr_x86_64` | Ubuntu with AMDGPU deps (GitHub runner) | [Source](./dockerfiles/amdgpu_ubuntu_jammy_ghr_x86_64.Dockerfile)
+`iree-org/cpubuilder_ubuntu_ghr_x86_64` | CPU builder with IREE build deps | [Source](./dockerfiles/cpubuilder_ubuntu_jammy_x86_64.Dockerfile)
 `iree-org/cpubuilder_ubuntu_jammy_ghr_x86_64` | CPU builder with IREE build deps (GitHub runner) | [Source](./dockerfiles/cpubuilder_ubuntu_jammy_ghr_x86_64.Dockerfile)
 `iree-org/manylinux_x86_64` | Portable Linux release builder for Python packaging | [Source](./dockerfiles/manylinux_x86_64.Dockerfile)
 `iree-org/manylinux_ghr_x86_64` | Portable Linux release builder for Python packaging (GitHub runner) | [Source](./dockerfiles/manylinux_ghr_x86_64.Dockerfile)
@@ -33,12 +34,21 @@ can be referenced using tags or hashes:
 
 To build locally, use a command like:
 
-```
+```bash
 sudo docker buildx build --file dockerfiles/some.Dockerfile .
 ```
 
 This will print a SHA image id, which you can run with:
 
-```
+```bash
 sudo docker run --rm -it --entrypoint /bin/bash <<IMAGE>>
+```
+
+You can also
+[tag an image](https://docs.docker.com/get-started/docker-concepts/building-images/build-tag-and-publish-an-image/)
+to avoid needing to copy the SHA each time:
+
+```bash
+sudo docker buildx build --file dockerfiles/cpubuilder_ubuntu_jammy_x86_64.Dockerfile . --tag cpubuilder:latest
+sudo docker run --rm --mount type=bind,source="realpath(~/iree)",target=/iree -it --entrypoint bash cpubuilder:latest
 ```
