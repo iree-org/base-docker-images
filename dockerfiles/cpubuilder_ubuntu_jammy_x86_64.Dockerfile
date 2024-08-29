@@ -32,7 +32,7 @@ RUN ./install_cmake.sh "${CMAKE_VERSION}" && rm -rf /install-cmake
 
 ######## Build toolchain configuration ########
 # Setup symlinks and alternatives then default to using clang-14.
-# This can be overriden to gcc another clang version as needed.
+# This can be overriden to gcc or another clang version as needed.
 RUN ln -s /usr/bin/lld-14 /usr/bin/lld && \
     ln -s /usr/bin/ld.lld-14 /usr/bin/ld.lld && \
     ln -s /usr/bin/clang-14 /usr/bin/clang && \
