@@ -10,7 +10,7 @@ Image name | Description | Source Dockerfile
 ---------- | ----------- | -----------------
 `iree-org/amdgpu_ubuntu_jammy_x86_64` | Ubuntu with AMDGPU deps | [Source](./dockerfiles/amdgpu_ubuntu_jammy_x86_64.Dockerfile)
 `iree-org/amdgpu_ubuntu_jammy_ghr_x86_64` | Ubuntu with AMDGPU deps (GitHub runner) | [Source](./dockerfiles/amdgpu_ubuntu_jammy_ghr_x86_64.Dockerfile)
-`iree-org/cpubuilder_ubuntu_ghr_x86_64` | CPU builder with IREE build deps | [Source](./dockerfiles/cpubuilder_ubuntu_jammy_x86_64.Dockerfile)
+`iree-org/cpubuilder_ubuntu_jammy_x86_64` | CPU builder with IREE build deps | [Source](./dockerfiles/cpubuilder_ubuntu_jammy_x86_64.Dockerfile)
 `iree-org/cpubuilder_ubuntu_jammy_ghr_x86_64` | CPU builder with IREE build deps (GitHub runner) | [Source](./dockerfiles/cpubuilder_ubuntu_jammy_ghr_x86_64.Dockerfile)
 `iree-org/manylinux_x86_64` | Portable Linux release builder for Python packaging | [Source](./dockerfiles/manylinux_x86_64.Dockerfile)
 `iree-org/manylinux_ghr_x86_64` | Portable Linux release builder for Python packaging (GitHub runner) | [Source](./dockerfiles/manylinux_ghr_x86_64.Dockerfile)
