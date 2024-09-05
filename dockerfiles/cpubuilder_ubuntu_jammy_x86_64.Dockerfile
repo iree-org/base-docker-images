@@ -12,7 +12,7 @@ RUN apt install -y python3.11-dev python3.11-venv python3-pip && \
 RUN apt install -y \
         clang-14 lld-14 \
         gcc-9 g++-9 \
-        ccache ninja-build libssl-dev libxml2-dev libcapstone-dev libtbb-dev \
+        ninja-build libssl-dev libxml2-dev libcapstone-dev libtbb-dev \
         libzstd-dev llvm-dev pkg-config
 # Recent compiler tools for build configurations like ASan/TSan.
 #   * See https://apt.llvm.org/ for context on the apt commands.
@@ -21,8 +21,19 @@ RUN echo "deb http://apt.llvm.org/jammy/ llvm-toolchain-jammy-${LLVM_VERSION} ma
     curl https://apt.llvm.org/llvm-snapshot.gpg.key | gpg --dearmor > /etc/apt/trusted.gpg.d/llvm-snapshot.gpg && \
     apt update && \
     apt install -y clang-${LLVM_VERSION} lld-${LLVM_VERSION}
+# Virtual file system adapter for Azure Blob storage, used for remote cache.
+RUN curl -sSL -O https://packages.microsoft.com/config/ubuntu/22.04/packages-microsoft-prod.deb
+RUN dpkg -i packages-microsoft-prod.deb
+RUN rm packages-microsoft-prod.deb
+RUN apt-get update && \
+    apt-get install -y fuse3 blobfuse2
 # Cleanup.
 RUN apt clean && rm -rf /var/lib/apt/lists/*
+
+######## CCache ########
+WORKDIR /install-ccache
+COPY build_tools/install_ccache.sh ./
+RUN ./install_ccache.sh "4.10.2" && rm -rf /install-ccache
 
 ######## CMake ########
 WORKDIR /install-cmake
