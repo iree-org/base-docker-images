@@ -50,5 +50,5 @@ to avoid needing to copy the SHA each time:
 
 ```bash
 sudo docker buildx build --file dockerfiles/cpubuilder_ubuntu_jammy_x86_64.Dockerfile . --tag cpubuilder:latest
-sudo docker run --rm --mount type=bind,source="realpath(~/iree)",target=/iree -it --entrypoint bash cpubuilder:latest
+sudo docker run --rm --mount type=bind,source="$(realpath ~/iree)",target=/iree -it --entrypoint bash cpubuilder:latest
 ```
