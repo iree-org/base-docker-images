@@ -9,7 +9,8 @@ RUN apt install -y python3.11-dev python3.11-venv python3-pip && \
     update-alternatives --install /usr/local/bin/python python /usr/bin/python3.11 3 && \
     update-alternatives --install /usr/local/bin/python3 python3 /usr/bin/python3.11 3
 # Toolchains and build dependencies.
-RUN apt install -y \
+RUN apt update && \
+    apt install -y \
         clang-14 lld-14 \
         gcc-9 g++-9 \
         ninja-build libssl-dev libxml2-dev libcapstone-dev libtbb-dev \
@@ -34,6 +35,11 @@ RUN apt clean && rm -rf /var/lib/apt/lists/*
 WORKDIR /install-ccache
 COPY build_tools/install_ccache.sh ./
 RUN ./install_ccache.sh "4.10.2" && rm -rf /install-ccache
+
+######## sccache ########
+WORKDIR /install-sccache
+COPY build_tools/install_sccache.sh ./
+RUN ./install_sccache.sh "0.8.1" && rm -rf /install-sccache
 
 ######## CMake ########
 WORKDIR /install-cmake
