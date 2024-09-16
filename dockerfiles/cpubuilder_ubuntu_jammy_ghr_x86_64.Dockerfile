@@ -47,6 +47,12 @@ ENV CMAKE_VERSION="3.23.2"
 COPY build_tools/install_cmake.sh ./
 RUN ./install_cmake.sh "${CMAKE_VERSION}" && rm -rf /install-cmake
 
+######## Bazel ########
+ARG BAZEL_VERSION=6.5.0
+WORKDIR /install-bazel
+COPY build_tools/install_bazel.sh ./
+RUN ./install_bazel.sh && rm -rf /install-bazel
+
 ######## Build toolchain configuration ########
 # Setup symlinks and alternatives then default to using clang-14.
 # This can be overriden to gcc or another clang version as needed.
