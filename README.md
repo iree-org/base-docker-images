@@ -10,8 +10,8 @@ Image name | Description | Source Dockerfile
 ---------- | ----------- | -----------------
 `iree-org/amdgpu_ubuntu_jammy_x86_64` | Ubuntu with AMDGPU deps | [Source](./dockerfiles/amdgpu_ubuntu_jammy_x86_64.Dockerfile)
 `iree-org/amdgpu_ubuntu_jammy_ghr_x86_64` | Ubuntu with AMDGPU deps (GitHub runner) | [Source](./dockerfiles/amdgpu_ubuntu_jammy_ghr_x86_64.Dockerfile)
-`iree-org/cpubuilder_ubuntu_jammy_x86_64` | CPU builder with IREE build deps | [Source](./dockerfiles/cpubuilder_ubuntu_jammy_x86_64.Dockerfile)
-`iree-org/cpubuilder_ubuntu_jammy_ghr_x86_64` | CPU builder with IREE build deps (GitHub runner) | [Source](./dockerfiles/cpubuilder_ubuntu_jammy_ghr_x86_64.Dockerfile)
+`iree-org/cpubuilder_ubuntu_jammy` | CPU builder with IREE build deps | [Source](./dockerfiles/cpubuilder_ubuntu_jammy.Dockerfile)
+`iree-org/cpubuilder_ubuntu_jammy_ghr` | CPU builder with IREE build deps (GitHub runner) | [Source](./dockerfiles/cpubuilder_ubuntu_jammy_ghr.Dockerfile)
 `iree-org/manylinux_x86_64` | Portable Linux release builder for Python packaging | [Source](./dockerfiles/manylinux_x86_64.Dockerfile)
 `iree-org/manylinux_ghr_x86_64` | Portable Linux release builder for Python packaging (GitHub runner) | [Source](./dockerfiles/manylinux_ghr_x86_64.Dockerfile)
 
@@ -49,6 +49,39 @@ You can also
 to avoid needing to copy the SHA each time:
 
 ```bash
-sudo docker buildx build --file dockerfiles/cpubuilder_ubuntu_jammy_x86_64.Dockerfile . --tag cpubuilder:latest
+sudo docker buildx build --file dockerfiles/cpubuilder_ubuntu_jammy.Dockerfile . --tag cpubuilder:latest
 sudo docker run --rm --mount type=bind,source="$(realpath ~/iree)",target=/iree -it --entrypoint bash cpubuilder:latest
 ```
+
+## Multi-arch and multi-platform builds
+
+We publish images for multiple architectures, e.g. amd64 and arm64. See
+the documentation for multi-arch and multi-platform builds here:
+
+* https://www.docker.com/blog/multi-arch-build-and-images-the-simple-way/
+* https://docs.docker.com/build/building/multi-platform/
+* https://docs.docker.com/build/ci/github-actions/multi-platform/
+
+To build and use a multi-architecture image, pass `--platform`:
+
+```bash
+sudo docker buildx build --file dockerfiles/cpubuilder_ubuntu_jammy.Dockerfile --platform=linux/arm64,linux/amd64 . --tag cpubuilder:latest
+```
+
+* To run a multiplatform image on your host architecture, no changes are needed:
+
+    ```bash
+    sudo docker run --rm -it --entrypoint bash cpubuilder:latest
+
+    root:/$ uname -m
+    x86_64
+    ```
+
+* To run a multiplatform image on a different architecture, pass `--platform`:
+
+    ```bash
+    sudo docker run --rm -it --entrypoint bash --platform=linux/arm64 cpubuilder:latest
+
+    root:/$ uname -m
+    aarch64
+    ```

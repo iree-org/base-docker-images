@@ -1,5 +1,8 @@
-# Stock Ubuntu Jammy (22.04) with IREE build dependencies.
-FROM ubuntu:jammy
+# GitHub Actions Runner with IREE build deps.
+FROM docker.io/myoung34/github-runner:ubuntu-jammy
+
+ARG TARGETARCH
+ARG TARGETPLATFORM
 
 ######## Apt packages ########
 RUN apt update && \
@@ -26,16 +29,6 @@ RUN apt update && \
 # Cleanup.
 RUN apt clean && rm -rf /var/lib/apt/lists/*
 
-######## CCache ########
-WORKDIR /install-ccache
-COPY build_tools/install_ccache.sh ./
-RUN ./install_ccache.sh "4.10.2" && rm -rf /install-ccache
-
-######## sccache ########
-WORKDIR /install-sccache
-COPY build_tools/install_sccache.sh ./
-RUN ./install_sccache.sh "0.8.1" && rm -rf /install-sccache
-
 ######## CMake ########
 WORKDIR /install-cmake
 ENV CMAKE_VERSION="3.23.2"
@@ -52,4 +45,15 @@ RUN ln -s /usr/bin/lld-14 /usr/bin/lld && \
 ENV CC=clang
 ENV CXX=clang++
 
-WORKDIR /
+######## CCache ########
+WORKDIR /install-ccache
+COPY build_tools/install_ccache.sh ./
+RUN ./install_ccache.sh "4.10.2" && rm -rf /install-ccache
+
+######## sccache ########
+WORKDIR /install-sccache
+COPY build_tools/install_sccache.sh ./
+RUN ./install_sccache.sh "0.8.1" && rm -rf /install-sccache
+
+# Switch back to the working directory upstream expects.
+WORKDIR /actions-runner
