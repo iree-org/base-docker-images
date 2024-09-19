@@ -1,18 +1,18 @@
-name: Publish cpubuilder x86_64 images
+name: Publish cpubuilder images
 on:
   workflow_dispatch:
   push:
     branches: ['main']
     paths:
-    - dockerfiles/cpubuilder*_x86_64.Dockerfile
-    - .github/workflows/publish_cpubuilder_x86_64.yml
+    - dockerfiles/cpubuilder*.Dockerfile
+    - .github/workflows/publish_cpubuilder.yml
 
 jobs:
   build-cpubuilder-ubuntu-jammy:
     runs-on: ubuntu-latest
     env:
       REGISTRY: ghcr.io
-      IMAGE_NAME: iree-org/cpubuilder_ubuntu_jammy_x86_64
+      IMAGE_NAME: iree-org/cpubuilder_ubuntu_jammy
     # Sets the permissions granted to the `GITHUB_TOKEN` for the actions in this job.
     permissions:
       contents: read
@@ -38,7 +38,8 @@ jobs:
         uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
         with:
           context: .
-          file: dockerfiles/cpubuilder_ubuntu_jammy_x86_64.Dockerfile
+          file: dockerfiles/cpubuilder_ubuntu_jammy.Dockerfile
+          platforms: linux/amd64,linux/arm64
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
@@ -47,7 +48,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       REGISTRY: ghcr.io
-      IMAGE_NAME: iree-org/cpubuilder_ubuntu_jammy_ghr_x86_64
+      IMAGE_NAME: iree-org/cpubuilder_ubuntu_jammy_ghr
     # Sets the permissions granted to the `GITHUB_TOKEN` for the actions in this job.
     permissions:
       contents: read
@@ -73,7 +74,8 @@ jobs:
         uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
         with:
           context: .
-          file: dockerfiles/cpubuilder_ubuntu_jammy_ghr_x86_64.Dockerfile
+          file: dockerfiles/cpubuilder_ubuntu_jammy_ghr.Dockerfile
+          platforms: linux/amd64,linux/arm64
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}

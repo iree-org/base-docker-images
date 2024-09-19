@@ -1,6 +1,9 @@
 # Stock Ubuntu Jammy (22.04) with IREE build dependencies.
 FROM ubuntu:jammy
 
+ARG TARGETARCH
+ARG TARGETPLATFORM
+
 ######## Apt packages ########
 RUN apt update && \
     apt install -y wget git unzip curl gnupg2 lsb-release
@@ -15,31 +18,18 @@ RUN apt update && \
         gcc-9 g++-9 \
         ninja-build libssl-dev libxml2-dev libcapstone-dev libtbb-dev \
         libzstd-dev llvm-dev pkg-config
+
+# TODO: re-enable this when LLVM apt packages are working again
 # Recent compiler tools for build configurations like ASan/TSan.
 #   * See https://apt.llvm.org/ for context on the apt commands.
-ARG LLVM_VERSION=19
-RUN echo "deb http://apt.llvm.org/jammy/ llvm-toolchain-jammy-${LLVM_VERSION} main" >> /etc/apt/sources.list && \
-    curl https://apt.llvm.org/llvm-snapshot.gpg.key | gpg --dearmor > /etc/apt/trusted.gpg.d/llvm-snapshot.gpg && \
-    apt update && \
-    apt install -y clang-${LLVM_VERSION} lld-${LLVM_VERSION}
-# Virtual file system adapter for Azure Blob storage, used for remote cache.
-RUN curl -sSL -O https://packages.microsoft.com/config/ubuntu/22.04/packages-microsoft-prod.deb
-RUN dpkg -i packages-microsoft-prod.deb
-RUN rm packages-microsoft-prod.deb
-RUN apt-get update && \
-    apt-get install -y fuse3 blobfuse2
+# ARG LLVM_VERSION=19
+# RUN echo "deb http://apt.llvm.org/jammy/ llvm-toolchain-jammy-${LLVM_VERSION} main" >> /etc/apt/sources.list && \
+#     curl https://apt.llvm.org/llvm-snapshot.gpg.key | gpg --dearmor > /etc/apt/trusted.gpg.d/llvm-snapshot.gpg && \
+#     apt update && \
+#     apt install -y clang-${LLVM_VERSION} lld-${LLVM_VERSION}
+
 # Cleanup.
 RUN apt clean && rm -rf /var/lib/apt/lists/*
-
-######## CCache ########
-WORKDIR /install-ccache
-COPY build_tools/install_ccache.sh ./
-RUN ./install_ccache.sh "4.10.2" && rm -rf /install-ccache
-
-######## sccache ########
-WORKDIR /install-sccache
-COPY build_tools/install_sccache.sh ./
-RUN ./install_sccache.sh "0.8.1" && rm -rf /install-sccache
 
 ######## CMake ########
 WORKDIR /install-cmake
@@ -56,5 +46,15 @@ RUN ln -s /usr/bin/lld-14 /usr/bin/lld && \
     ln -s /usr/bin/clang++-14 /usr/bin/clang++
 ENV CC=clang
 ENV CXX=clang++
+
+######## CCache ########
+WORKDIR /install-ccache
+COPY build_tools/install_ccache.sh ./
+RUN ./install_ccache.sh "4.10.2" && rm -rf /install-ccache
+
+######## sccache ########
+WORKDIR /install-sccache
+COPY build_tools/install_sccache.sh ./
+RUN ./install_sccache.sh "0.8.1" && rm -rf /install-sccache
 
 WORKDIR /
