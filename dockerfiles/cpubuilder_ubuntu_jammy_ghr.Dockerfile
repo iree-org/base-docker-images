@@ -55,5 +55,10 @@ WORKDIR /install-sccache
 COPY build_tools/install_sccache.sh ./
 RUN ./install_sccache.sh "0.8.1" && rm -rf /install-sccache
 
+######## target-architecture-specific installs ########
+WORKDIR /install-target-arch
+COPY build_tools/install_arch_extras_${TARGETARCH}.sh ./
+RUN ./install_arch_extras_${TARGETARCH}.sh && rm -rf /install-target-arch
+
 # Switch back to the working directory upstream expects.
 WORKDIR /actions-runner
