@@ -18,7 +18,6 @@ RUN apt update && \
         gcc-9 g++-9 \
         ninja-build libssl-dev libxml2-dev libcapstone-dev libtbb-dev \
         libzstd-dev llvm-dev pkg-config
-
 # TODO: re-enable this when LLVM apt packages are working again
 # Recent compiler tools for build configurations like ASan/TSan.
 #   * See https://apt.llvm.org/ for context on the apt commands.
@@ -27,7 +26,6 @@ RUN apt update && \
 #     curl https://apt.llvm.org/llvm-snapshot.gpg.key | gpg --dearmor > /etc/apt/trusted.gpg.d/llvm-snapshot.gpg && \
 #     apt update && \
 #     apt install -y clang-${LLVM_VERSION} lld-${LLVM_VERSION}
-
 # Cleanup.
 RUN apt clean && rm -rf /var/lib/apt/lists/*
 
