@@ -22,12 +22,6 @@ RUN echo "deb http://apt.llvm.org/jammy/ llvm-toolchain-jammy-${LLVM_VERSION} ma
     curl https://apt.llvm.org/llvm-snapshot.gpg.key | gpg --dearmor > /etc/apt/trusted.gpg.d/llvm-snapshot.gpg && \
     apt update && \
     apt install -y clang-${LLVM_VERSION} lld-${LLVM_VERSION}
-# Virtual file system adapter for Azure Blob storage, used for remote cache.
-RUN curl -sSL -O https://packages.microsoft.com/config/ubuntu/22.04/packages-microsoft-prod.deb
-RUN dpkg -i packages-microsoft-prod.deb
-RUN rm packages-microsoft-prod.deb
-RUN apt-get update && \
-    apt-get install -y fuse3 blobfuse2
 # Cleanup.
 RUN apt clean && rm -rf /var/lib/apt/lists/*
 
