@@ -1,7 +1,8 @@
 # We build our portable linux releases on the manylinux (RHEL-based)
 # images, with custom additional packages installed. We switch to
 # new upstream versions as needed.
-FROM quay.io/pypa/manylinux_2_28_x86_64@sha256:9042a22d33af2223ff7a3599f236aff1e4ffd07e1ed1ac93a58877638317515f
+# See https://github.com/pypa/manylinux and https://quay.io/organization/pypa.
+FROM quay.io/pypa/manylinux_2_28_x86_64@sha256:cea0ade79068b36deae7eb7a04b4192e5ba2761d045ba5a92ba36eb5ce5f88b6
 
 RUN yum install -y epel-release && \
     yum install -y ccache clang lld && \
