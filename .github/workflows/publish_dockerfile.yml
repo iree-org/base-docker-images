@@ -20,7 +20,6 @@ on:
 
 jobs:
   build-and-publish:
-    # Note: stuck on 22.04 to workaround 24.04 issues on arm64: https://github.com/docker/buildx/issues/1170
     runs-on: ubuntu-22.04
     env:
       REGISTRY: ghcr.io
