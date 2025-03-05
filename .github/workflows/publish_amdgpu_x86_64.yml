@@ -9,7 +9,7 @@ on:
 
 jobs:
   build-amdgpu-ubuntu-jammy:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     env:
       REGISTRY: ghcr.io
       IMAGE_NAME: iree-org/amdgpu_ubuntu_jammy_x86_64
@@ -43,7 +43,7 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
 
   build-amdgpu-ubuntu-jammy-ghr:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     env:
       REGISTRY: ghcr.io
       IMAGE_NAME: iree-org/amdgpu_ubuntu_jammy_ghr_x86_64

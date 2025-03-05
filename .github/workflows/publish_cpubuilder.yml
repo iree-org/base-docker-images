@@ -9,7 +9,7 @@ on:
 
 jobs:
   build-cpubuilder-ubuntu-jammy:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     env:
       REGISTRY: ghcr.io
       IMAGE_NAME: iree-org/cpubuilder_ubuntu_jammy
@@ -46,7 +46,7 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
 
   build-cpubuilder-ubuntu-jammy-ghr:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     env:
       REGISTRY: ghcr.io
       IMAGE_NAME: iree-org/cpubuilder_ubuntu_jammy_ghr
