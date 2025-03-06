@@ -7,6 +7,10 @@ on:
     - dockerfiles/cpubuilder*.Dockerfile
     - .github/workflows/publish_cpubuilder.yml
 
+permissions:
+  contents: read
+  packages: write
+
 jobs:
   build-cpubuilder-ubuntu-jammy:
     uses: ./.github/workflows/publish_dockerfile.yml
