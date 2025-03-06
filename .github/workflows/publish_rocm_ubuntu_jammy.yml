@@ -1,0 +1,19 @@
+name: Publish rocm_ubuntu_jammy image
+on:
+  workflow_dispatch:
+  push:
+    branches: ['main']
+    paths:
+    - dockerfiles/rocm_ubuntu_jammy.Dockerfile
+    - .github/workflows/publish_rocm_ubuntu_jammy.yml
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  build-and-push-image:
+    uses: ./.github/workflows/publish_dockerfile.yml
+    with:
+        DOCKERFILE_NAME: rocm_ubuntu_jammy
+        PLATFORMS: linux/amd64
