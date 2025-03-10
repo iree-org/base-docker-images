@@ -14,7 +14,6 @@ Image name | Description | Source Dockerfile
 `iree-org/cpubuilder_ubuntu_jammy_ghr` | CPU builder with IREE build deps (GitHub runner) | [Source](./dockerfiles/cpubuilder_ubuntu_jammy_ghr.Dockerfile)
 `iree-org/manylinux_x86_64` | Portable Linux release builder for Python packaging | [Source](./dockerfiles/manylinux_x86_64.Dockerfile)
 `iree-org/manylinux_ghr_x86_64` | Portable Linux release builder for Python packaging (GitHub runner) | [Source](./dockerfiles/manylinux_ghr_x86_64.Dockerfile)
-`iree-org/rocm_ubuntu_jammy` | Ubuntu with ROCm and minimal IREE build/test deps | [Source](./dockerfiles/rocm_ubuntu_jammy.Dockerfile)
 
 ## Using published images
 
