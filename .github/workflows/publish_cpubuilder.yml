@@ -4,7 +4,7 @@ on:
   push:
     branches: ['main']
     paths:
-    - dockerfiles/cpubuilder*.Dockerfile
+    - dockerfiles/cpubuilder_ubuntu_jammy*.Dockerfile
     - .github/workflows/publish_cpubuilder.yml
 
 permissions:
