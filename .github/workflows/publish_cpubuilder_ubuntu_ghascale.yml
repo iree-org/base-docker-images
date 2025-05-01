@@ -1,0 +1,20 @@
+name: Publish ghascale cpubuilder images
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '30 5 * * *'
+  push:
+    branches: ['main']
+    paths:
+    - dockerfiles/cpubuilder_ubuntu_ghascale.Dockerfile
+    - .github/workflows/publish_cpubuilder_ubuntu_ghascale.yml
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  build-cpubuilder-ubuntu-ghascale:
+    uses: ./.github/workflows/publish_dockerfile.yml
+    with:
+        DOCKERFILE_NAME: cpubuilder_ubuntu_ghascale
