@@ -22,7 +22,7 @@ RUN sudo apt-get update -y \
     python3-setuptools \
     python3-wheel \
     libpython3.10 \
-    python3.10-venv
+    python3.10-venv \
     && sudo rm -rf /var/lib/apt/lists/*
 
 # git lfs install
