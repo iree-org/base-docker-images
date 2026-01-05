@@ -15,7 +15,7 @@ RUN apt install -y python3.11-dev python3.11-venv python3-pip && \
 RUN apt update && \
     apt install -y \
         clang-14 lld-14 \
-        gcc-9 g++-9 \
+        gcc-11 g++-11 \
         ninja-build libssl-dev libxml2-dev libcapstone-dev libtbb-dev \
         libzstd-dev llvm-dev pkg-config
 # Recent compiler tools for build configurations like ASan/TSan.
